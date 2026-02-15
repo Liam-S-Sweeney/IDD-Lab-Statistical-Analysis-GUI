@@ -1,4 +1,4 @@
-## Project: IDD Lab Statistical Analysis Tool
+## Project: IDD Lab Statistical Analysis GUI
 
 A Python-based GUI analysis tool developed to support exploratory and multivariate statistical workflows for large behavioral research datasets. The application abstracts common statistical tasks into an interactive GUI, allowing researchers to rapidly explore variables, generate descriptive summaries, and visualize relationships without writing repetitive analysis scripts.
 
