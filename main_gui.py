@@ -144,8 +144,8 @@ def run_master_gen():
     return
 
 def run_all_var_gen():
-    path.mkdir(parents=True, exist_ok=True)
     path = Path(SINGLE_VAR_DESCRIPTIVES_PATH)
+    path.mkdir(parents=True, exist_ok=True)
 
     if path.exists() and path.is_dir() and any(path.iterdir()):
         response = messagebox.askyesno(
