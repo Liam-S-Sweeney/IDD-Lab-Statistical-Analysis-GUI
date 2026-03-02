@@ -1,12 +1,10 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import pandas as pd
-import numpy as np
 from pathlib import Path
 from config import DATA_PATH, SINGLE_VAR_DESCRIPTIVES_PATH, MULTIVARIATE_ANALYSIS_PATH
 from data_loader import load_clean
 import os
-from descriptive_csv_generator import master_descriptive_csv_generator, all_single_var_descriptive_csv_generator
+from global_descriptive_generator import master_descriptive_csv_generator, all_single_var_descriptive_csv_generator
 from multivariate_exploration import explore_multi_variables, multivariate_visualizations, correlational_analysis
 
 
@@ -139,7 +137,6 @@ def run_multivariate_corr():
         return
 
     correlational_analysis(*selected)
-    messagebox.showinfo("Success!", "CSV Generated")
 
 def run_master_gen():
     master_descriptive_csv_generator()
@@ -190,27 +187,31 @@ update_dropdowns()
 btn_explore_multi_var = tk.Button(top_frame, 
                                   text='Multivariate Exploration',
                             command=run_explore_multivariate)
-btn_explore_multi_var.grid(row=0, column=0, padx=5, sticky="ew")
+btn_explore_multi_var.grid(row=0, column=0, padx=5, sticky="nsew")
 
 btn_multi_vis = tk.Button(top_frame, text='Multivariate Visualization',
                            command=run_multivariate_vis)
-btn_multi_vis.grid(row=0, column=1, padx=5, sticky="ew")
+btn_multi_vis.grid(row=0, column=1, padx=5, sticky="nsew")
 
-btn_multi_corr = tk.Button(top_frame, text='Multivariate Visualization',
+btn_multi_corr = tk.Button(top_frame, text='Multivariate Correlation',
                            command=run_multivariate_corr)
-btn_multi_corr.grid(row=0, column=2, padx=5, sticky="ew")
+btn_multi_corr.grid(row=0, column=2, padx=5, sticky="nsew")
 
 
 # Full-Data Buttons
 btn_master_desc = tk.Button(bottom_frame, 
                             text='Master Descriptive CSV Generator',
                             command=run_master_gen)
-btn_master_desc.grid(row=0, column=0, padx=5, sticky="ew")
+btn_master_desc.grid(row=0, column=0, padx=5, sticky="nsew")
 
 btn_all_single = tk.Button(bottom_frame, 
                            text='All Single Var Descriptive CSV Generator',
                            command=all_single_var_descriptive_csv_generator)
-btn_all_single.grid(row=0, column=1, padx=5, sticky="ew")
+btn_all_single.grid(row=0, column=1, padx=5, sticky="nsew")
+
+# Weight Adjustments
+for i in range(3):
+    top_frame.columnconfigure(i, weight=1)
 
 
 # Start GUI loop

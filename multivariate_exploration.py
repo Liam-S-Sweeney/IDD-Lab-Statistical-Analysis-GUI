@@ -3,15 +3,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import scipy.stats as stats
-from data_loader import load_raw, load_clean
+from data_loader import load_clean
 from config import HUE_COL, SIZE_COL, PALETTE
 
-# Dataframe
-raw_df = load_raw()
-clean_df = load_clean()
 
 def explore_multi_variables(*cols, palette=PALETTE):
-    
+
+    clean_df = load_clean() 
+
     descriptive_dict = {
         # Variable Info
         'position': [],
@@ -99,21 +98,16 @@ def explore_multi_variables(*cols, palette=PALETTE):
                 descriptive_dict['kurtosis'].append(stats.kurtosis(np.array(list(non_na))))
             
             # Measures of Frequency
-            n = len(non_na_array)
-            unique_values, counts = np.unique(non_na_array, return_counts = True)
-    
-            if len(counts.astype(int)) > (0.1*n):
-                frequency = 'CONTINUOUS'
-            
+            n = non_na_array.size
+            unique_values, counts = np.unique(non_na_array, return_counts=True)
+
+            n_unique = len(counts)
+
+            if n_unique > 20:
+                frequency = "CONTINUOUS"
             else:
-                frequencies_calc = counts/n * 100
-                frequency_data = list(zip(unique_values, counts, frequencies_calc.astype(int)))
-                freq_list = []
-                for tuple in frequency_data:
-                    uv, cts, freq = tuple
-                    ucf = f"Unique Value: {uv}, Counts: {cts}, Frequencies: {freq}"
-                    freq_list.append(ucf)
-                frequency = freq_list
+                percents = np.round((counts / n) * 100, 2)
+                frequency = [(float(uv), int(ct), float(p)) for uv, ct, p in zip(unique_values, counts, percents)] 
 
                     
 
@@ -208,7 +202,10 @@ def explore_multi_variables(*cols, palette=PALETTE):
 ############
 
 def multivariate_visualizations(*cols, hue_col=HUE_COL, size_col=SIZE_COL, palette=PALETTE):
-    cols = [c for c in cols if c]
+
+    clean_df = load_clean() 
+
+    ols = [c for c in cols if c]
     if len(cols) < 2:
         raise ValueError("Select at least two variables.")
 
@@ -246,6 +243,9 @@ def multivariate_visualizations(*cols, hue_col=HUE_COL, size_col=SIZE_COL, palet
 #########
 
 def correlational_analysis(*cols, hue_col="CGender_4", palette=PALETTE):
+
+    clean_df = load_clean() 
+
     # clean selected columns
     cols = [c for c in cols if c]
 
