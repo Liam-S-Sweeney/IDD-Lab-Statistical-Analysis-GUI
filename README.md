@@ -37,9 +37,13 @@ A desktop GUI application for exploratory data analysis of longitudinal neurobeh
 ```
 pandas
 numpy
-scipy
+requests
 matplotlib
+scipy
 seaborn
+matplotlib
+statsmodels
+scikit-learn
 ```
 
 Install with:
