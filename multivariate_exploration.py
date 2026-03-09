@@ -93,8 +93,7 @@ def explore_multi_variables(*cols, palette=PALETTE):
 def multivariate_visualizations(*cols, hue_col=HUE_COL, size_col=SIZE_COL, palette=PALETTE):
 
     clean_df = load_clean() 
-
-    ols = [c for c in cols if c]
+    
     if len(cols) < 2:
         raise ValueError("Select at least two variables.")
 
